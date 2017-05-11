@@ -11,7 +11,7 @@ You should be able to spin up a BJC demo and log onto it, and clone this cookboo
 0.  Spin up 2.1.14 of aws-bjc-demo.  Install the knife-ec2 gem:
   `chef gem install knife-ec2`
 
-1.  Create C:\Users\chef\.aws\config and populate with your own settings.  You can copy these from your ~/.aws/config or ~/.aws/credentials file.  Example:
+1.  Create C:\Users\chef\\.aws\config and populate with your own settings.  You can copy these from your ~/.aws/config or ~/.aws/credentials file.  Example:
 
 ```
 [default]
