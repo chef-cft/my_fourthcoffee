@@ -1,0 +1,34 @@
+<powershell>
+# Script based on examples in Bojan Rajkovic's Code Rinse Repeat blog.
+# Details: http://coderinserepeat.com/2015/07/15/chef-knife-ec2-and-knife-windows/
+
+# Set our admin password
+$admin = [adsi]("WinNT://./Administrator, user")
+$admin.psbase.invoke("SetPassword", "Opscode123")
+# Turn on WinRM, make sure to relax its security a bit.
+# Please don't expose the WinRM port to the world on these machines.
+# I am not responsible for anything that happens if you do.
+winrm qc -q
+winrm set winrm/config '@{MaxTimeoutms="1800000"}'
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+winrm set winrm/config/service/auth '@{Basic="true"}'
+# Make sure to trust all hosts
+Set-Item wsman:localhost\client\trustedhosts -value * -force
+# Turn off the Windows firewall. Its default WinRM rules only allow traffic from
+# hosts in your domain and from "private" networks. Its functionality is superseded
+# by security groups anyway.
+Get-NetFirewallProfile | Set-NetFirewallProfile -Enabled False
+# Stop the WinRM service, make sure it autostarts on reboot, and start it
+net stop winrm
+sc.exe config winrm start=auto
+net start winrm
+
+# Add the chef server's hostname to hosts file
+$chefserverip = "172.31.54.10"
+$chefserverhostname = "chef.automate-demo.com"
+$automateserverip = "172.31.54.11"
+$automateserverhostname = "automate.automate-demo.com"
+$filename = "C:\Windows\System32\drivers\etc\hosts"
+$automateserverip + "`t`t" + $automateserverhostname | Out-File -encoding ASCII -append $filename
+$chefserverip + "`t`t" + $chefserverhostname | Out-File -encoding ASCII -append $filename
+</powershell>

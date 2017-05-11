@@ -1,0 +1,38 @@
+DEPENDENCIES
+  fourthcoffee
+    git: https://github.com/juliandunn/fourthcoffee
+    revision: 1ac38f8a31e227c6c09fdf01772e53552a792731
+  my_fourthcoffee
+    path: .
+    metadata: true
+
+GRAPH
+  audit (3.1.0)
+    compat_resource (>= 0.0.0)
+  chef-ingredient (2.0.5)
+  compat_resource (12.19.0)
+  fourthcoffee (0.1.1)
+    iis (>= 0.0.0)
+    windows (>= 0.0.0)
+  iis (6.5.0)
+    windows (>= 2.0)
+  my_fourthcoffee (0.1.6)
+    audit (>= 0.0.0)
+    fourthcoffee (>= 0.0.0)
+    iis (>= 0.0.0)
+    push-jobs (>= 0.0.0)
+    windows (>= 0.0.0)
+    windows_firewall (>= 0.0.0)
+  ohai (5.1.0)
+  packagecloud (0.3.0)
+  push-jobs (5.0.0)
+    chef-ingredient (>= 0.0.0)
+    runit (>= 1.2.0)
+  runit (3.0.5)
+    packagecloud (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  windows (3.0.5)
+    ohai (>= 4.0.0)
+  windows_firewall (3.0.2)
+  yum-epel (2.1.1)
+    compat_resource (>= 12.16.3)
