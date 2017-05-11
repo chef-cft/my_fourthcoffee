@@ -20,7 +20,7 @@ aws_access_key_id=AKIAXXXXXXXXXXXXXXXXX
 aws_secret_access_key=630SIMsn4Q0P5XXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-2.  Configure C:\Users\chef\.chef\knife.rb like so:
+2.  Configure C:\Users\chef\\.chef\knife.rb like so:
 
 ```
 current_dir = File.dirname(__FILE__)
