@@ -1,80 +1,63 @@
 # my_fourthcoffee Cookbook
 
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+A Chef Automate demo cookbook for Windows 2012r2. This cookbook is meant to be used in conjunction with the BJC Chef Demo: https://github.com/chef-cft/bjc
 
 ## Requirements
 
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+You should be able to spin up a BJC demo and log onto it, and clone this cookbook.  You'll also need AWS EC2 API keys which you can copy from your own ~/.aws/config or ~/.aws/credentials files.
 
-e.g.
-### Platforms
+## Instructions for Use
 
-- SandwichOS
+0.  Spin up 2.1.14 of aws-bjc-demo.  Install the knife-ec2 gem:
+  `chef gem install knife-ec2`
 
-### Chef
+1.  Create C:\Users\chef\.aws\config and populate with your own settings.  You can copy these from your ~/.aws/config or ~/.aws/credentials file.  Example:
 
-- Chef 12.0 or later
-
-### Cookbooks
-
-- `toaster` - my_fourthcoffee needs toaster to brown your bagel.
-
-## Attributes
-
-TODO: List your cookbook attributes here.
-
-e.g.
-### my_fourthcoffee::default
-
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['my_fourthcoffee']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
-
-## Usage
-
-### my_fourthcoffee::default
-
-TODO: Write usage instructions for each cookbook.
-
-e.g.
-Just include `my_fourthcoffee` in your node's `run_list`:
-
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[my_fourthcoffee]"
-  ]
-}
+```
+[default]
+region=us-west-2
+aws_access_key_id=AKIAXXXXXXXXXXXXXXXXX
+aws_secret_access_key=630SIMsn4Q0P5XXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-## Contributing
+2.  Configure C:\Users\chef\.chef\knife.rb like so:
 
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
+```
+current_dir = File.dirname(__FILE__)
+log_level            :info
+log_location         STDOUT
+node_name            'workstation-1'
+chef_server_url      'https://chef.automate-demo.com/organizations/automate'
+client_key           "#{ENV['HOME']}/.chef/private.pem"
+trusted_certs_dir    "#{ENV['HOME']}/.chef/trusted_certs"
+cookbook_path        "#{ENV['HOME']}/cookbooks"
+data_collector.server_url 'https://automate.automate-demo.com/data-collector/v0/'
+client_d_dir         'C:\Users\Default\.chef\config.d'
+knife[:aws_credential_file] = "#{ENV['HOME']}/.aws/config"
+```
 
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+3.  Clone the my_fourthcoffee cookbook into your cookbooks directory:
 
-## License and Authors
+```
+cd ~/cookbooks
+git clone https://github.com/scarolan/my_fourthcoffee
+cd my_fourthcoffee
+berks install; berks upload
+```
 
-Authors: TODO: List authors
+4.  Do the same for the chef-client cookbook
 
+```
+cd ~/cookbooks
+git clone https://github.com/chef-cookbooks/chef-client
+cd chef-client
+berks install; berks upload
+```
+
+4.  Crank up one or more Windows instances.  You can fetch the security group and subnet from the .kitchen.local.yml file located in the Test_Kitchen folder on the desktop.  You should run this command from the main directory of the my_fourthcoffee cookbook.  Just increment the --node-name and --tags parameters for each new machine:
+
+```
+knife ec2 server create -x Administrator -P Opscode123 --node-name WindowsServer1 --identity-file C:\Users\chef\.ssh\id_rsa --ssh-key chef_demo_2x --region us-west-2 -g sg-aff696d4 --subnet subnet-31f9016a -I ami-2ad04f4a --flavor m3.large --tags Name="WindowsServer1" --json-attribute-file attributes.json --associate-public-ip --user-data user_data --run-list "recipe['chef-client::config'],recipe['chef-client::task'],recipe['my_fourthcoffee'],recipe['audit']"
+```
+
+5.  Optional:  Run 'kitchen converge' and 'kitchen verify'.  Demo the repair and revert recipes.  You may need to update .kitchen.yml with your own security_group_ids: setting.
