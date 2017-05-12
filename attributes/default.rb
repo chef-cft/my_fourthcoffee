@@ -18,6 +18,7 @@ default['audit']['profiles'] = [
 # Ship audit data to chef automate
 default['chef_client']['config']['data_collector.server_url'] = "https://automate.automate-demo.com/data-collector/v0/"
 default['chef_client']['config']['data_collector.token'] = "93a49a4f2482c64126f7b6015e6b0f30284287ee4054ff8807fb63d9cbd1c506"
+default['chef_client']['task']['frequency_modifier'] = 3
 
 # Reboot after powershell installation
 default['powershell']['installation_reboot_mode'] = 'immediate_reboot'

@@ -1,6 +1,6 @@
 {
 	"chef_client": {
 		"interval": 180,
-		"splay": 30
+		"task": { "frequency_modifier": 3 }
 	}
 }
