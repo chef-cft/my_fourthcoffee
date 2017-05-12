@@ -39,9 +39,9 @@ knife[:aws_credential_file] = "#{ENV['HOME']}/.aws/config"
 
 https://github.com/scarolan/my_fourthcoffee/blob/master/files/default/windows_demo.ps1
 
-4.  When the script is done it will spit out a file called knifeEc2Commands.txt onto your desktop.  You can copy the `knife ec2 server create` command in that file to spin up as many Windows instances as you want.  Just increment the node_name and tag to add more. 
+4.  When the script is done it will spit out a file called knifeEc2Commands.txt onto your desktop.  You can copy the `knife ec2 server create` command in that file to spin up as many Windows instances as you want.  Just increment the node_name and tag to add more.  Note that your machine may reboot itself a couple of times while it configures itself.  You can see all that in the Automate visibility console.  Expect reboots after WMF and Powershell5 are installed.  The machine should settle into steady 3 minute converges after about 10 minutes or so.
 
-5.  Optional:  Run 'kitchen converge' and 'kitchen verify'.  Demo the repair and revert recipes.  You may need to update .kitchen.yml with your own security_group_ids: setting.
+5.  Optional:  Run 'kitchen converge' and 'kitchen verify'.  Demo the repair and revert recipes.  You may need to update .kitchen.yml with your own security_group_ids: setting if you're not on the SA AWS account.
 
 6.  Optional:  If you want to purge all data from Visibility, and have a 'Windows Only' demo, run this command on your automate server:
 
