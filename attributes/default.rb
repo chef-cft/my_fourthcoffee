@@ -7,7 +7,7 @@ default['push_jobs']['package_checksum'] = "3b979f8d362738c8ac126ace0e80122a4cbc
 default['push_jobs']['allow_unencrypted'] = true
 
 # Get your audit on
-default['audit']['collector'] = 'chef-automate'
+default['audit']['reporter'] = 'chef-automate'
 default['audit']['profiles'] = [
   {
     name: 'admin/ssl-benchmark',
