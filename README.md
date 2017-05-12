@@ -8,8 +8,7 @@ You should be able to spin up a BJC demo and log onto it, and clone this cookboo
 
 ## Instructions for Use
 
-0.  Spin up 2.1.14 of aws-bjc-demo.  Install the knife-ec2 gem:
-  `chef gem install knife-ec2`
+0.  Spin up 2.1.14 of aws-bjc-demo.  Log onto the workstation and wait for the startup script to complete before proceeding.
 
 1.  Create C:\Users\chef\\.aws\config and populate with your own settings.  You can copy these from your ~/.aws/config or ~/.aws/credentials file.  Example:
 
@@ -36,28 +35,10 @@ client_d_dir         'C:\Users\Default\.chef\config.d'
 knife[:aws_credential_file] = "#{ENV['HOME']}/.aws/config"
 ```
 
-3.  Clone the my_fourthcoffee cookbook into your cookbooks directory:
+3.  Run the below powershell script on your Workstation.  It will download cookbooks and set up your environment to build Windows nodes running Fourth Coffee with SSL.
 
-```
-cd ~/cookbooks
-git clone https://github.com/scarolan/my_fourthcoffee
-cd my_fourthcoffee
-berks install; berks upload
-```
+https://github.com/scarolan/my_fourthcoffee/blob/master/files/default/windows_demo.ps1
 
-4.  Do the same for the chef-client cookbook
-
-```
-cd ~/cookbooks
-git clone https://github.com/chef-cookbooks/chef-client
-cd chef-client
-berks install; berks upload
-```
-
-4.  Crank up one or more Windows instances.  You can fetch the security group and subnet from the .kitchen.local.yml file located in the Test_Kitchen folder on the desktop.  You should run this command from the main directory of the my_fourthcoffee cookbook.  Just increment the --node-name and --tags parameters for each new machine:
-
-```
-knife ec2 server create -x Administrator -P Opscode123 --node-name WindowsServer1 --identity-file C:\Users\chef\.ssh\id_rsa --ssh-key chef_demo_2x --region us-west-2 -g sg-aff696d4 --subnet subnet-31f9016a -I ami-2ad04f4a --flavor m3.large --tags Name="WindowsServer1" --json-attribute-file attributes.json --associate-public-ip --user-data user_data --run-list "recipe['chef-client::config'],recipe['chef-client::task'],recipe['my_fourthcoffee'],recipe['audit']"
-```
+4.  When the script is done it will spit out a file called knifeEc2Commands.txt onto your desktop.  You can copy the `knife ec2 server create` command in that file to spin up as many Windows instances as you want.  Just increment the node_name and tag to add more. 
 
 5.  Optional:  Run 'kitchen converge' and 'kitchen verify'.  Demo the repair and revert recipes.  You may need to update .kitchen.yml with your own security_group_ids: setting.
