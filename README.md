@@ -42,3 +42,7 @@ https://github.com/scarolan/my_fourthcoffee/blob/master/files/default/windows_de
 4.  When the script is done it will spit out a file called knifeEc2Commands.txt onto your desktop.  You can copy the `knife ec2 server create` command in that file to spin up as many Windows instances as you want.  Just increment the node_name and tag to add more. 
 
 5.  Optional:  Run 'kitchen converge' and 'kitchen verify'.  Demo the repair and revert recipes.  You may need to update .kitchen.yml with your own security_group_ids: setting.
+
+6.  Optional:  If you want to purge all data from Visibility, and have a 'Windows Only' demo, run this command on your automate server:
+
+`curl -X DELETE http://localhost:9200/_all`
