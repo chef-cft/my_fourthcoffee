@@ -1,5 +1,9 @@
 # Script to generate knife ec2 server create commands
 
+function Get-Mac {
+  Invoke-RestMethod -Uri http://169.254.169.254/latest/meta-data/network/interfaces/macs
+}
+
 function Get-Subnet {
   $mac = Get-Mac
   Invoke-RestMethod -Uri http://169.254.169.254/latest/meta-data/network/interfaces/macs/$mac/subnet-id
