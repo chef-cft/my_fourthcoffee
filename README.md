@@ -8,8 +8,7 @@ You should be able to spin up a BJC demo and log onto it, and clone this cookboo
 
 ## Instructions for Use
 
-0.  Spin up 2.1.14 of aws-bjc-demo.  Install the knife-ec2 gem:
-  `chef gem install knife-ec2`
+0.  Spin up 2.1.14 of aws-bjc-demo.  Log onto the workstation and wait for the startup script to complete before proceeding.
 
 1.  Create C:\Users\chef\\.aws\config and populate with your own settings.  You can copy these from your ~/.aws/config or ~/.aws/credentials file.  Example:
 
@@ -36,7 +35,7 @@ client_d_dir         'C:\Users\Default\.chef\config.d'
 knife[:aws_credential_file] = "#{ENV['HOME']}/.aws/config"
 ```
 
-3.  Run the below powershell script on your Workstation.
+3.  Run the below powershell script on your Workstation.  It will download cookbooks and set up your environment to build Windows nodes running Fourth Coffee with SSL.
 
 https://github.com/scarolan/my_fourthcoffee/blob/master/files/default/windows_demo.ps1
 
