@@ -7,6 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# Set up a no-op reboot action
+reboot 'ssl_updates_require_reboot' do
+  action :nothing
+  reason 'Need to reboot after updating SSL versions and ciphers.'
+end
+
+# Get a modern version of Powershell
+include_recipe 'powershell::powershell5'
+
 # Install the base fourthcoffee site
 include_recipe 'fourthcoffee'
 
@@ -35,8 +44,20 @@ windows_certificate_binding 'WIN-SDH3PTM46Q7' do
 end
 
 # Remove telnet because it's 2017
-windows_feature ['TelnetServer', 'TelnetClient'] do
-  action :remove
+#windows_feature ['TelnetServer', 'TelnetClient'] do
+#  action :remove
+#end
+
+dsc_resource 'Remove Telnet Server' do
+  resource :windowsfeature
+  property :ensure, 'Absent'
+  property :name, 'Telnet-Server'
+end
+
+dsc_resource 'Remove Telnet Client' do
+  resource :windowsfeature
+  property :ensure, 'Absent'
+  property :name, 'Telnet-Client'
 end
 
 # Create a new iis_pool and application with SSL enabled.
@@ -52,12 +73,6 @@ iis_site 'MySite' do
   path node['fourthcoffee']['install_path']
   application_pool 'myapp'
   action [:add,:start]
-end
-
-# Set up a no-op reboot action
-reboot 'ssl_updates_require_reboot' do
-  action :nothing
-  reason 'Need to reboot after updating SSL versions and ciphers.'
 end
 
 ############################################################
