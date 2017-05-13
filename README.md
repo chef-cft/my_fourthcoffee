@@ -35,9 +35,12 @@ client_d_dir         'C:\Users\Default\.chef\config.d'
 knife[:aws_credential_file] = "#{ENV['HOME']}/.aws/config"
 ```
 
-3.  Run the below powershell script on your Workstation.  It will download cookbooks and set up your environment to build Windows nodes running Fourth Coffee with SSL.
+3.  Fetch and run the powershell script onto your Workstation.  It will download cookbooks and set up your environment to build Windows nodes running Fourth Coffee with SSL.
 
-https://raw.githubusercontent.com/scarolan/my_fourthcoffee/master/files/default/windows_demo.ps1
+```
+wget -OutFile windows_demo.ps1 https://raw.githubusercontent.com/scarolan/my_fourthcoffee/master/files/default/windows_demo.ps1
+./windows_demo.ps1
+```
 
 4.  When the script is done it will spit out a file called knifeEc2Commands.txt onto your desktop.  You can copy the `knife ec2 server create` command in that file to spin up as many Windows instances as you want.  Just increment the node_name and tag to add more.  Note that your machine may reboot itself a couple of times while it configures itself.  You can see all that in the Automate visibility console.  Expect reboots after WMF and Powershell5 are installed.  The machine should settle into steady 3 minute converges after about 10 minutes or so.
 
