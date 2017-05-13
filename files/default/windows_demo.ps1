@@ -20,7 +20,7 @@ function Write-ec2Commands {
     $subnet = Get-Subnet
     $sg = Get-SecurityGroup
 
-    New-Item $args[0] -type file -value "knife ec2 server create -x Administrator -P Opscode123 --node-name WindowsServer1 --identity-file C:\Users\chef\.ssh\id_rsa --ssh-key chef_demo_2x --region us-west-2 -g $sg --subnet $subnet -I ami-2ad04f4a --flavor m3.large --tags Name='WindowsServer1' --json-attribute-file attributes.json --associate-public-ip --user-data user_data --run-list `"recipe['chef-client::task'],recipe['chef-client::config'],recipe['my_fourthcoffee'],recipe['audit']"`" -force
+    New-Item $args[0] -type file -value "knife ec2 server create -x Administrator -P Opscode123 --node-name WindowsServer1 --identity-file C:\Users\chef\.ssh\id_rsa --ssh-key chef_demo_2x --region us-west-2 -g $sg --subnet $subnet -I ami-2ad04f4a --flavor m3.large --tags Name='WindowsServer1' --json-attribute-file attributes.json --associate-public-ip --user-data user_data --run-list `"recipe['chef-client::task'],recipe['chef-client::config'],recipe['my_fourthcoffee'],recipe['audit']`"" -force
 }
 
 chef gem install knife-ec2
