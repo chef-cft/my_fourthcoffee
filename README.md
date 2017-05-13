@@ -1,6 +1,6 @@
 # my_fourthcoffee Cookbook
 
-A Chef Automate demo cookbook for Windows 2012r2. This cookbook is meant to be used in conjunction with the BJC Chef Demo: https://github.com/chef-cft/bjc
+A Chef Automate demo cookbook for Windows 2012r2. This cookbook is meant to be used in conjunction with the BJC Chef Demo: https://github.com/chef-cft/bjc.  Estimated preparation time is around 30 minutes.
 
 ## Requirements
 
