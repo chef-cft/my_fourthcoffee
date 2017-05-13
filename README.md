@@ -43,7 +43,7 @@ wget -OutFile windows_demo.ps1 https://raw.githubusercontent.com/scarolan/my_fou
 ./windows_demo.ps1
 ```
 
-4.  When the script is done it will spit out a file called knifeEc2Commands.txt onto your desktop.  You can copy the `knife ec2 server create` command in that file to spin up as many Windows instances as you want.  Just change the name WindowsServer1 to whatever you like.  Note that your machine will reboot itself a couple of times while it configures itself.  You can see all that in the Automate visibility console.  Expect reboots after WMF and Powershell5 are installed.  The machine should settle into steady 3 minute converges after about 10 minutes or so.
+4.  When the script is done it will spit out a file called knifeEc2Commands.txt onto your desktop.  You can copy the `knife ec2 server create` command in that file to spin up as many Windows instances as you want.  Just change the name WindowsServer1 to whatever you like.  Note that your machine will reboot itself a couple of times while it configures itself.  You can see all that in the Automate visibility console.  Expect reboots after WMF and Powershell5 are installed.  The machine should settle into steady 3 minute converges after about 10 minutes or so.  The first Chef run will look like it fails on installing WMF5.  This is normal.
 
 5.  NOTE:  If you want to run test kitchen, you have to install Powershell5 manually on the instance.  Installation of Powershell over WinRM is not supported.  So you could `kitchen create`, log on and install powershell5, *then* `kitchen converge`.
 
