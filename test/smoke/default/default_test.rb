@@ -34,3 +34,15 @@ control 'WannaCry Vulnerability Check' do
     its('exit_status') { should eq 0 }
   end
 end
+
+control "SMB1 Protocol Check" do
+  title "Control 'Microsoft network server: Set SMB1' to 'Disabled'"
+  desc "Disable this policy setting to prevent the very out-of-date and insecure SMB1 protocol"
+  impact 1.0
+  describe registry_key("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\LanmanServer\\Parameters") do
+    it { should have_property "SMB1" }
+  end
+  describe registry_key("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\LanmanServer\\Parameters") do
+    its("SMB1") { should cmp == 0 }
+  end
+end
