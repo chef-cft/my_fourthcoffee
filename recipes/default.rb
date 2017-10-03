@@ -14,7 +14,8 @@ reboot 'ssl_updates_require_reboot' do
 end
 
 # Get a modern version of Powershell
-include_recipe 'powershell::powershell5'
+# No longer required for Windows Server 2016
+# include_recipe 'powershell::powershell5'
 
 # Install the base fourthcoffee site
 include_recipe 'fourthcoffee'
@@ -48,17 +49,18 @@ end
 #  action :remove
 #end
 
-dsc_resource 'Remove Telnet Server' do
-  resource :windowsfeature
-  property :ensure, 'Absent'
-  property :name, 'Telnet-Server'
-end
-
-dsc_resource 'Remove Telnet Client' do
-  resource :windowsfeature
-  property :ensure, 'Absent'
-  property :name, 'Telnet-Client'
-end
+# Telnet is not even included on 2016 server
+# dsc_resource 'Remove Telnet Server' do
+#   resource :windowsfeature
+#   property :ensure, 'Absent'
+#   property :name, 'Telnet-Server'
+# end
+# 
+# dsc_resource 'Remove Telnet Client' do
+#   resource :windowsfeature
+#   property :ensure, 'Absent'
+#   property :name, 'Telnet-Client'
+# end
 
 # Create a new iis_pool and application with SSL enabled.
 iis_pool 'myapp' do
