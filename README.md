@@ -1,3 +1,8 @@
+
+AN UPDATE/TESTING OF FUNCTIONALITY OF THIS PROJECT IS IN PROGRESS for 4.5.x demos.     Current version, use at your own risk.  It likely works just fine with an updated AMI
+
+- kkwentus
+________________________________________
 # my_fourthcoffee Cookbook
 
 A Chef Automate demo cookbook for Windows 2012r2. This cookbook is meant to be used in conjunction with the BJC Chef Demo: https://github.com/chef-cft/bjc.  Estimated preparation time is around 30 minutes.
