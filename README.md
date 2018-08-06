@@ -9,13 +9,13 @@ A Chef Automate demo cookbook for Windows 2012r2. This cookbook is meant to be u
 
 ## Requirements
 
-You should be able to spin up a BJC demo and log onto it, and clone this cookbook.  You'll also need AWS EC2 API keys which you can copy from your own ~/.aws/config or ~/.aws/credentials files.
+You should be able to spin up a BJC demo and log onto it, and clone this cookbook onto the BJC workstation into the chef users home directory. You'll also need AWS EC2 API keys which you can copy from your own ~/.aws/config or ~/.aws/credentials files. NOTE: Establish a okta_aws connection on your workstation first before copying the key info.
 
 ## Instructions for Use
 
-0.  Spin up 2.1.14 of aws-bjc-demo.  Log onto the workstation.  You can proceed with the below steps while the startup script is running.
+0.  Spin up 5.1.1-dev of aws-bjc-demo.  Log onto the workstation.  You can proceed with the below steps while the startup script is running.
 
-1.  Create C:\Users\chef\\.aws\config and populate with your own settings.  You can copy these from your ~/.aws/config or ~/.aws/credentials file.  Your API keys are required to use the `knife ec2 server create` command.  Example:
+1.  Create C:\Users\chef\\.aws\config and populate with your own settings.  You can copy these from your ~/.aws/config or ~/.aws/credentials file.  NOTE: Establish a okta_aws connection on your workstation first before copying the key info.  Your API keys are required to use the `knife ec2 server create` command.  Example:
 
 ```
 [default]
@@ -40,13 +40,13 @@ client_d_dir         'C:\Users\Default\.chef\config.d'
 knife[:aws_credential_file] = "#{ENV['HOME']}/.aws/config"
 ```
 
-3.  Fetch and run the powershell script onto your Workstation.  It will download the chef-client and my_fourthcoffee cookbooks and set up your environment to build Windows nodes running Fourth Coffee with SSL.
+3.  Run the 'windows-demo.ps1' powershell script located within the cloned my_fourthcoffee/files/default/ directory.  It will download the chef-client and my_fourthcoffee cookbooks and set up your environment to build Windows nodes running Fourth Coffee with SSL.
 
-```
+<!-- ```
 cd ~/
 wget -OutFile windows_demo.ps1 https://raw.githubusercontent.com/scarolan/my_fourthcoffee/master/files/default/windows_demo.ps1
 ./windows_demo.ps1
-```
+``` -->
 
 4.  When the script is done it will spit out a file called knifeEc2Commands.txt onto your desktop.  You can copy the `knife ec2 server create` command in that file to spin up as many Windows instances as you want.  Just change the name WindowsServer1 to whatever you like.  Note that your machine will reboot itself a couple of times while it configures itself.  You can see all that in the Automate visibility console.  Expect reboots after WMF and Powershell5 are installed.  The machine should settle into steady 3 minute converges after about 10 minutes or so.  The first Chef run will look like it fails on installing WMF5.  This is normal.
 

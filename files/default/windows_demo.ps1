@@ -28,6 +28,9 @@ cd ${env:userprofile}\cookbooks
 git clone https://github.com/chef-cookbooks/chef-client
 cd chef-client
 berks install; berks upload
+git clone https://github.com/chef-cookbooks/iis
+cd iis
+berks install; berks upload
 cd ${env:userprofile}\cookbooks
 git clone https://github.com/scarolan/my_fourthcoffee
 cd my_fourthcoffee
